@@ -15,6 +15,11 @@ def main():
     clock = pygame.time.Clock()
     dt = 0.0
 
+    # Create groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+
     # Initiate the player
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
@@ -28,8 +33,9 @@ def main():
         screen.fill("black")
 
         # Draw player
-        player.draw(screen)
-        player.update(dt)
+        updatable.update(dt)
+        for item in drawable:
+            item.draw(screen)
 
 
         for event in pygame.event.get():
